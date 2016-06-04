@@ -1,7 +1,14 @@
 var fs = require('fs');
 var cmudictFile = readCmudictFile('./cmudict.txt');
+var sherlockFile = readSherlockFile('./sherlock.txt')
+
+// should be able to generalize these two into one function
 
 function readCmudictFile(file) {
+	return fs.readFileSync(file).toString();
+}
+
+function readSherlockFile(file) {
 	return fs.readFileSync(file).toString();
 }
 
@@ -17,6 +24,7 @@ function formatData(data) {
 }
 
 var dict = formatData(cmudictFile);
+
 
 // sort word 'dictionary' into syllables array
 
@@ -76,6 +84,47 @@ function createHaiku(structure) {
 	});
 	console.log("");
 }
+
+
+function numSyllables(word) {
+	for (var i = 0; i < syllablesArr.length; i++) {
+		if (Array.isArray(syllablesArr[i])) {
+			if (syllablesArr[i].indexOf(word.toUpperCase()) > -1) {
+				return i;
+			}
+		}
+	}
+	return undefined;
+}
+
+// not yet working extra-credit function
+
+// function findBookHaiku(structure) {
+// 	var formatted = sherlockFile.toString().split(/\s/);
+// 	var output = [], temp, count;
+// 	for (var i = 0, x = formatted.length; i < x; i++) {
+// 		for (var k = 0; k < 3; k++) {
+// 			if (numSyllables(formatted[i]) === structure[k][0]) {
+// 				temp = [formatted[i]];
+// 				for (var j = 1; j < structure[0].length; j++) {
+// 					if (numSyllables(formatted[i+j]) === structure[0][j]) {
+// 						temp.push(formatted[i+j]);
+// 					} else {
+// 						break;
+// 					}
+// 				}
+// 				if (temp.length === structure[0].length) {
+// 					output.push(temp.join(" "));
+// 				}
+// 			}
+// 		}
+// 		if (output.length === 3) {
+// 			console.log(output.join("\n"));
+// 			break;
+// 		}
+// 	}
+// 	console.log("No matches in this book for that structure.");
+// }
 
 module.exports = {
 	createHaiku: createHaiku

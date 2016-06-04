@@ -1,14 +1,9 @@
 var fs = require('fs');
-var cmudictFile = readCmudictFile('./cmudict.txt');
-var sherlockFile = readSherlockFile('./sherlock.txt')
+var cmudictFile = readFile('./cmudict.txt');
+var sherlockFile = readFile('./sherlock.txt')
 
-// should be able to generalize these two into one function
 
-function readCmudictFile(file) {
-	return fs.readFileSync(file).toString();
-}
-
-function readSherlockFile(file) {
+function readFile(file) {
 	return fs.readFileSync(file).toString();
 }
 
